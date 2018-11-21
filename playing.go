@@ -431,14 +431,16 @@ func (s *playingState) update(window *pixelgl.Window) state {
 		dir = "left"
 	}
 	hero += dir
-	s.sprites[hero].Draw(window, pixel.IM.Moved(
-		pixel.V(float64(s.playerX), float64(windowH-s.playerY))).
-		Moved(pixel.ZV.Sub(s.sprites[hero].Picture().Bounds().Center())))
+	drawAt := func(s *pixel.Sprite, x, y int) {
+		b := s.Picture().Bounds()
+		s.Draw(window, pixel.IM.
+			Moved(pixel.V(float64(x), float64(windowH-y)-b.H())).
+			Moved(b.Center()))
+	}
+	drawAt(s.sprites[hero], s.playerX, s.playerY)
 	if s.shootBan > 0 {
 		head := s.sprites["hero eye blink "+dir]
-		head.Draw(window, pixel.IM.Moved(
-			pixel.V(float64(s.playerX), float64(windowH-s.playerY))).
-			Moved(pixel.ZV.Sub(head.Picture().Bounds().Center())))
+		drawAt(head, s.playerX, s.playerY)
 	}
 	var legs *pixel.Sprite
 	if walking {
@@ -447,9 +449,7 @@ func (s *playingState) update(window *pixelgl.Window) state {
 	} else {
 		legs = s.sprites["hero legs stand "+dir]
 	}
-	legs.Draw(window, pixel.IM.Moved(
-		pixel.V(float64(s.playerX), float64(windowH-s.playerY))).
-		Moved(pixel.ZV.Sub(legs.Picture().Bounds().Center())))
+	drawAt(legs, s.playerX, s.playerY)
 	// zombies
 	for _, z := range s.zombies {
 		dir := "right"
@@ -463,17 +463,16 @@ func (s *playingState) update(window *pixelgl.Window) state {
 			img = fmt.Sprintf("zombie %d %s %d", z.kind, dir, z.frame)
 		}
 		zombie := s.sprites[img]
-		zombie.Draw(window, pixel.IM.Moved(
-			pixel.V(float64(z.x), float64(windowH-z.y))).
-			Moved(pixel.ZV.Sub(zombie.Picture().Bounds().Center())))
+		drawAt(zombie, z.x, z.y)
 	}
 	// blood and gore
 	for i := range s.blood {
 		b := &s.blood[i]
+		bounds := s.bloodParticle.Picture().Bounds()
 		s.bloodParticle.Draw(window, pixel.IM.
 			Rotated(pixel.ZV, b.rotation).
-			Moved(pixel.V(b.x, windowH-b.y)).
-			Moved(pixel.ZV.Sub(s.bloodParticle.Picture().Bounds().Center())))
+			Moved(pixel.V(b.x, windowH-b.y-bounds.H())).
+			Moved(bounds.Center()))
 	}
 	// bullets
 	for _, b := range s.bullets {
