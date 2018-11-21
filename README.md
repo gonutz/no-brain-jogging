@@ -1,7 +1,7 @@
 No-Brain Jogging
 ================
 
-![Screenshot](https://raw.githubusercontent.com/gonutz/ld41/master/screenshots/screen%2002.png)
+![Screenshot](https://raw.githubusercontent.com/gonutz/no-brain-jogging/master/screenshots/screenshot.png)
 
 This is a port of [my entry](https://ldjam.com/events/ludum-dare/41/no-brain-jogging) for the [Ludum Dare 41](https://ldjam.com/events/ludum-dare/41) game jam to [the pixel game engine](https://github.com/faiface/pixel). The theme was: "Combine two Incompatible Genres".
 
