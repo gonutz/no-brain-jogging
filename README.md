@@ -14,4 +14,3 @@ In this game you solve math calculations to shoot your rifle and kill some zombi
 
 The [original version](https://github.com/gonutz/ld41) was written using my [prototype](https://github.com/gonutz/prototype) library. This is a rewrite using [faiface](https://github.com/faiface)'s [pixel game library](https://github.com/faiface/pixel) and [beep audio library](https://github.com/faiface/beep). I wanted to try out these libraries because I intend to use them for the next Ludum Dare game jam.
 
-![Video](https://raw.githubusercontent.com/gonutz/ld41/master/screenshots/video%2002.gif)
