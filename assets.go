@@ -28,12 +28,12 @@ type sound beep.Buffer
 
 func (w *sound) play() {
 	buf := (*beep.Buffer)(w)
-	mixer.Play(buf.Streamer(0, buf.Len()))
+	mixer.Add(buf.Streamer(0, buf.Len()))
 }
 
 func (w *sound) loop() {
 	buf := (*beep.Buffer)(w)
-	mixer.Play(beep.Loop(-1, buf.Streamer(0, buf.Len())))
+	mixer.Add(beep.Loop(-1, buf.Streamer(0, buf.Len())))
 }
 
 func loadWav(path string) *sound {
